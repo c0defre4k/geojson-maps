@@ -2,6 +2,7 @@
 import { ref, computed, useCssModule } from 'vue'
 import { RouterView } from 'vue-router'
 import centerOfMass from '@turf/center-of-mass'
+import PagePreview from '@/components/PagePreview.vue'
 import LeafletMap from '@/components/maps/LeafletMap.vue'
 import LeafletGeoJson from '@/components/maps/LeafletGeoJson.vue'
 import LeafletMarker from '@/components/maps/LeafletMarker.vue'
@@ -17,6 +18,8 @@ const layerStyle = ref({
   fillColor: null,
   fillOpacity: 0
 })
+const pageSize = ref('A4')
+const pageMargin = ref(0)
 const $style = useCssModule()
 
 const markers = computed(() => {
@@ -42,21 +45,28 @@ const markers = computed(() => {
 </script>
 
 <template>
-  <aside class="bg-white basis-96 p-3 lg:p-4 overflow-y-scroll">
+  <aside class="bg-white w-96 shrink-0 p-3 lg:p-4 overflow-y-scroll print:hidden">
     <RouterView
       v-model:zoom="zoom"
       v-model:center="center"
       v-model:layerStyle="layerStyle"
+      v-model:pageSize="pageSize"
+      v-model:pageMargin="pageMargin"
       @update:geoJson="geoJson = $event"
       @update:geoJsonLabel="geoJsonLabel = $event"
     />
   </aside>
 
-  <main class="grow">
+  <PagePreview
+    class="grow"
+    :size="pageSize"
+    :margin="pageMargin"
+  >
     <LeafletMap
       v-model:zoom="zoom"
       v-model:center="center"
       class="h-full"
+      :scroll-wheel-zoom="false"
       :zoom-control="false"
       :style="`--fillColor: ${layerStyle.color}`"
     >
@@ -71,7 +81,7 @@ const markers = computed(() => {
         v-bind="marker"
       />
     </LeafletMap>
-  </main>
+  </PagePreview>
 </template>
 
 <style lang="scss" module>

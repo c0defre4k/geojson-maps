@@ -1,0 +1,6 @@
+export const A0 = [841, 1189]
+export const A1 = [594, 841]
+export const A2 = [420, 594]
+export const A3 = [297, 420]
+export const A4 = [210, 297]
+export const A5 = [148, 210]

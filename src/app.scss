@@ -25,3 +25,9 @@
     @apply h-auto w-10 p-0;
   }
 }
+
+@media print {
+  .print:hidden {
+    display: none;
+  }
+}
