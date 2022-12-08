@@ -68,6 +68,7 @@ function readGeoJson(e) {
   const reader = new FileReader()
   reader.addEventListener('load', () => {
     geoJson.value = JSON.parse(reader.result)
+    geoJson.value.features = geoJson.value.features.filter((feature) => feature.properties.IncludeStatistics !== false)
     emit('update:geoJson', unref(geoJson))
   })
   reader.readAsText(file)
