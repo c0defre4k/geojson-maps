@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  label {
+    @apply block mb-2 text-sm font-medium text-gray-900;
+    @apply dark:text-white;
+  }
+  input:not([type=color]), select {
+    @apply block w-full px-2.5 py-2 bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg;
+    @apply focus:ring-blue-500 focus:border-blue-500;
+    @apply dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+  }
+
+  input:read-only:not([type=file]), input.disabled, select.disabled {
+    @apply bg-gray-100 text-gray-700 cursor-not-allowed;
+  }
+
+  select {
+    @apply pr-4;
+  }
+
+  input[type=color] {
+    @apply h-auto w-10 p-0;
+  }
+}
