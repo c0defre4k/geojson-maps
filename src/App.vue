@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, useCssModule } from 'vue'
+import { ref, computed, useCssModule, watch, nextTick } from 'vue'
 import { RouterView } from 'vue-router'
 import centerOfMass from '@turf/center-of-mass'
 import PagePreview from '@/components/PagePreview.vue'
@@ -7,6 +7,7 @@ import LeafletMap from '@/components/maps/LeafletMap.vue'
 import LeafletGeoJson from '@/components/maps/LeafletGeoJson.vue'
 import LeafletMarker from '@/components/maps/LeafletMarker.vue'
 
+const map = ref()
 const geoJson = ref(undefined)
 const geoJsonLabel = ref(undefined)
 const zoom = ref(7)
@@ -42,6 +43,17 @@ const markers = computed(() => {
       coords: centerOfMass(feature).geometry.coordinates.reverse()
     }))
 })
+
+watch(pageSize, () => {
+  nextTick(() => {
+    map.value.update()
+  })
+})
+watch(pageMargin, () => {
+  nextTick(() => {
+    map.value.update()
+  })
+})
 </script>
 
 <template>
@@ -63,6 +75,7 @@ const markers = computed(() => {
     :margin="pageMargin"
   >
     <LeafletMap
+      ref="map"
       v-model:zoom="zoom"
       v-model:center="center"
       class="h-full"

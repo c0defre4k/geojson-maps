@@ -158,8 +158,12 @@
         ) {
           this.$options.map.fitBounds(latLngBounds, this.fitOptions)
         }
+      },
+      update() {
+        this.$options.map.invalidateSize(false);
       }
-    }
+    },
+    expose: ['update']
   }
 </script>
 
