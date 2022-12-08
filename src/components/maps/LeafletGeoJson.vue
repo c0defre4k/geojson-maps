@@ -10,6 +10,10 @@ const props = defineProps({
   layerStyle: {
     type: Object,
     default: undefined
+  },
+  onEachFeature: {
+    type: Function,
+    default: undefined
   }
 })
 const getMap = inject('getMap')
@@ -18,7 +22,10 @@ let geoJsonLayer = ref(null)
 function updateGeoJson() {
   const map = getMap()
   if (map) {
-    geoJsonLayer.value = (new GeoJSON(props.json, props.layerStyle)).addTo(map)
+    geoJsonLayer.value = (new GeoJSON(props.json, {
+      style: props.layerStyle,
+      onEachFeature: props.onEachFeature
+    })).addTo(map)
     map.fitBounds(geoJsonLayer.value.getBounds())
   }
 }
