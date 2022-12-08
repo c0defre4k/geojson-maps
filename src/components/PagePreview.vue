@@ -1,7 +1,7 @@
 <template>
   <div
     ref="view"
-    class="overflow-scroll flex justify-center align-middle"
+    class="overflow-hidden flex justify-center align-middle"
   >
     <div
       ref="page"
