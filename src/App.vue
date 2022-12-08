@@ -67,6 +67,7 @@ const markers = computed(() => {
       v-model:center="center"
       class="h-full"
       :scroll-wheel-zoom="false"
+      :attribution-control="false"
       :zoom-control="false"
       :style="`--fillColor: ${layerStyle.color}`"
     >
