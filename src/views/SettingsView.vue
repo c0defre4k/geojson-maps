@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref, unref } from 'vue'
+import * as pageSizes from '@/constants/pageSizes'
 
 const props = defineProps({
   zoom: {
@@ -17,6 +18,14 @@ const props = defineProps({
   geoJsonLabel: {
     type: String,
     default: undefined
+  },
+  pageSize: {
+    type: String,
+    default: () => 'A4'
+  },
+  pageMargin: {
+    type: Number,
+    default: 0
   }
 })
 
@@ -25,7 +34,9 @@ const emit = defineEmits([
   'update:geoJsonLabel',
   'update:layerStyle',
   'update:zoom',
-  'update:center'
+  'update:center',
+  'update:pageSize',
+  'update:pageMargin'
 ])
 
 const lat = computed({
@@ -245,7 +256,41 @@ function readGeoJson(e) {
     </div>
   </fieldset>
 
-  <fieldset />
+  <fieldset>
+    <h2 class="text-2xl mb 4">Page</h2>
+
+    <div class="mb-3">
+      <label for="pageSize">Size</label>
+      <select
+        id="pageSize"
+        name="pageSize"
+        :value="pageSize"
+        @input="$emit('update:pageSize', $event.target.value)"
+      >
+        <option
+          v-for="size in Object.keys(pageSizes)"
+          :key="size"
+          :value="size"
+        >
+          {{ size }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="pageMargin">Margin [cm]</label>
+      <input
+        id="pageMargin"
+        :value="pageMargin"
+        type="number"
+        name="pageMargin"
+        step="0.1"
+        min="0"
+        max="3"
+        @input="$emit('update:pageMargin', Number($event.target.value))"
+      >
+    </div>
+  </fieldset>
 </template>
 
 <style lang="scss">
