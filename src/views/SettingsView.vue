@@ -170,7 +170,7 @@ function readGeoJson(e) {
         max="1"
         @input="updateStyle('opacity', Number($event.target.value))"
       >
-      <small class="text-gray-700">{{ layerStyle.opacity }}</small>
+      <small class="text-gray-700 dark:text-gray-400">{{ layerStyle.opacity }}</small>
     </div>
     <hr class="my-4">
     <div class="mb-3">
@@ -207,7 +207,7 @@ function readGeoJson(e) {
         max="1"
         @input="updateStyle('fillOpacity', Number($event.target.value))"
       >
-      <small class="text-gray-700">{{ layerStyle.fillOpacity }}</small>
+      <small class="text-gray-700 dark:text-gray-400">{{ layerStyle.fillOpacity }}</small>
     </div>
   </fieldset>
 

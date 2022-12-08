@@ -58,7 +58,7 @@ watch(pageMargin, updateMap)
 </script>
 
 <template>
-  <aside class="bg-white w-96 shrink-0 p-3 lg:p-4 overflow-y-scroll print:hidden">
+  <aside class="bg-white dark:bg-gray-800 dark:text-white w-96 shrink-0 p-3 lg:p-4 overflow-y-scroll print:hidden">
     <RouterView
       v-model:zoom="zoom"
       v-model:center="center"
