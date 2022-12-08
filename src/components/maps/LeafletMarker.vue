@@ -1,74 +1,94 @@
-<script>
-  import { Marker, DivIcon } from 'leaflet'
+<script setup>
+import { useAttrs, inject, unref, onBeforeMount, watch, onBeforeUnmount } from 'vue'
+import { Marker, DivIcon } from 'leaflet'
 
-  export default {
-    name: 'LeafletMarker',
-    inject: ['getMap'],
-    model: {
-      prop: 'coords',
-      event: 'change'
-    },
-    props: {
-      coords: {
-        type: Object,
-        required: true
-        // @todo: validate for { lat: 0, lng: 0 }
-      },
-      draggable: {
-        type: Boolean,
-        default: false
-      },
-      icon: {
-        type: Object,
-        default: undefined
-      }
-    },
-    beforeMount() {
-      const map = this.getMap()
-      const {
-        coords: { lat, lng },
-        icon,
-        draggable,
-        ...options
-      } = this.$props
+const props = defineProps({
+  coords: {
+    type: [Object, Array],
+    required: true
+    // @todo: validate for { lat: 0, lng: 0 }
+  },
+  draggable: {
+    type: Boolean,
+    default: false
+  },
+  icon: {
+    type: Object,
+    default: undefined
+  }
+})
+const getMap = inject('getMap')
+const emit = defineEmits(['change'])
+const attrs = useAttrs()
+const listeners = Object.entries(attrs)
+  .filter(([name]) => /^on/.test(name))
+  .reduce((acc, [name, fnc]) => {
+    acc[name.slice(2, 3).toLocaleLowerCase() + name.slice(3)] = fnc
+    return acc
+  }, {})
+let marker
 
-      if (icon) {
-        options.icon = icon instanceof DivIcon ? icon : new DivIcon(icon)
-      }
+function toLatLng(coords) {
+  if (coords instanceof Array) {
+    return coords
+  }
+  return [coords.lat, coords.lng || coords.lon]
+}
 
-      const marker = new Marker([lat, lng], options).addTo(map)
+onBeforeMount(() => {
+  const map = getMap()
+  const {
+    coords,
+    icon,
+    draggable,
+    ...options
+  } = props
 
-      const listeners = { ...this.$listeners }
-      if (draggable) {
-        listeners.dragend = () => {
-          this.$emit('change', marker.getLngLat())
-        }
-      }
+  if (icon) {
+    options.icon = icon instanceof DivIcon ? icon : new DivIcon(icon)
+  }
 
-      Object.keys(listeners).forEach((listener) => {
-        marker.on(listener, listeners[listener])
-      })
+  marker = new Marker(toLatLng(coords), options).addTo(map)
 
-      const unwatchCoords = this.$watch('coords', (coords) => {
-        marker.setLatLng(coords)
-      })
-
-      this.$once('hook:beforeDestroy', () => {
-        unwatchCoords()
-        Object.keys(listeners).forEach((listener) => {
-          marker.off(listener, listeners[listener])
-        })
-
-        if (map) {
-          map.removeLayer(marker)
-        }
-        marker.remove()
-      })
-    },
-    render() {
-      return null
+  if (draggable) {
+    listeners.dragend = () => {
+      emit('change', marker.getLngLat())
     }
   }
+
+  Object.keys(listeners).forEach((listener) => {
+    marker.on(listener, listeners[listener])
+  })
+})
+
+onBeforeUnmount(() => {
+  Object.keys(listeners).forEach((listener) => {
+    marker.off(listener, listeners[listener])
+  })
+
+  const map = getMap()
+  if (map) {
+    map.removeLayer(marker)
+  }
+  marker.remove()
+})
+
+watch(() => props.coords, (coords) => {
+  marker.setLatLng(unref(toLatLng(coords)))
+})
+
+watch(() => props.icon, (icon) => {
+  marker.setIcon(icon instanceof DivIcon ? icon : new DivIcon(icon))
+})
+
+</script>
+
+<script>
+export default {
+  render() {
+    return null
+  }
+}
 </script>
 
 <style lang="scss">
