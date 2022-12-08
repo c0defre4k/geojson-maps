@@ -257,7 +257,9 @@ function readGeoJson(e) {
   </fieldset>
 
   <fieldset>
-    <h2 class="text-2xl mb 4">Page</h2>
+    <h2 class="text-2xl mb 4">
+      Page
+    </h2>
 
     <div class="mb-3">
       <label for="pageSize">Size</label>

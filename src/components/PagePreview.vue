@@ -8,7 +8,7 @@
       :class="[$style.page, 'shrink-0']"
       :style="cssVariables"
     >
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>

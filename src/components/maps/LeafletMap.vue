@@ -76,6 +76,7 @@
         default: undefined
       }
     },
+    emits: ['update:zoom', 'update:center'],
     data() {
       return {
         hasLoaded: false
