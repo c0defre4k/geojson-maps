@@ -15,7 +15,7 @@ const layerStyle = ref({
   color: '#ff3300',
   opacity: 0.8,
   fillColor: null,
-  fillOpacity: 0.18
+  fillOpacity: 0
 })
 const $style = useCssModule()
 
