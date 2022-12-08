@@ -9,6 +9,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@turf/center-of-mass": "^6.5.0",
     "leaflet": "^1.9.3",
     "leaflet-providers": "^1.13.0",
     "vue": "^3.2.45",
