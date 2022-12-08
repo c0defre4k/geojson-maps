@@ -8,6 +8,7 @@ import LeafletGeoJson from '@/components/maps/LeafletGeoJson.vue'
 import LeafletMarker from '@/components/maps/LeafletMarker.vue'
 
 const map = ref()
+const geoJsonLayer = ref()
 const geoJson = ref(undefined)
 const geoJsonLabel = ref(undefined)
 const zoom = ref(7)
@@ -44,16 +45,16 @@ const markers = computed(() => {
     }))
 })
 
-watch(pageSize, () => {
+
+function updateMap() {
   nextTick(() => {
     map.value.update()
+    geoJsonLayer.value.fitBounds()
   })
-})
-watch(pageMargin, () => {
-  nextTick(() => {
-    map.value.update()
-  })
-})
+}
+
+watch(pageSize, updateMap)
+watch(pageMargin, updateMap)
 </script>
 
 <template>
@@ -86,6 +87,7 @@ watch(pageMargin, () => {
     >
       <LeafletGeoJson
         v-if="geoJson"
+        ref="geoJsonLayer"
         :json="geoJson"
         :layer-style="layerStyle"
       />

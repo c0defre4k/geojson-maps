@@ -30,6 +30,15 @@ function updateGeoJson() {
   }
 }
 
+function fitBounds() {
+  const map = getMap()
+  if (map) {
+    map.fitBounds(geoJsonLayer.value.getBounds())
+  }
+}
+
+defineExpose({ fitBounds })
+
 onBeforeMount(() => {
   updateGeoJson()
 })
