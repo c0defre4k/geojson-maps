@@ -1,6 +1,7 @@
-# geojson-maps
+# GeoJSON Maps
 
-This template should help get you started developing with Vue 3 in Vite.
+This just a small tool to easily create PDFs of maps using [BaseMap AT](https://basemap.at/) map data
+with support for [GeoJSON](https://geojson.org/) overlays.
 
 ## Recommended IDE Setup
 
