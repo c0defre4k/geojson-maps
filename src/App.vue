@@ -68,6 +68,10 @@ watch(pageMargin, updateMap)
       @update:geo-json="geoJson = $event"
       @update:geo-json-label="geoJsonLabel = $event"
     />
+
+    <div class="mt-5">
+      <small>Datenquelle: <a href="https://basemap.at/">basemap.at</a></small>
+    </div>
   </aside>
 
   <PagePreview
