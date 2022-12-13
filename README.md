@@ -3,6 +3,9 @@
 This just a small tool to easily create PDFs of maps using [BaseMap AT](https://basemap.at/) map data
 with support for [GeoJSON](https://geojson.org/) overlays.
 
+**DEMO**:
+https://c0defre4k.github.io/geojson-maps/
+
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
