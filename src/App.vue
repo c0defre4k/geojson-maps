@@ -39,7 +39,7 @@ const markers = computed(() => {
         clickable: false,
         keyboard: false,
         opacity: layerStyle.value.opacity,
-        iconSize: [4 + 6 * feature.properties[geoJsonLabel.value].length, 15]
+        iconSize: [6 + Math.ceil(6.4 * feature.properties[geoJsonLabel.value].trim().length), 16]
       },
       coords: centerOfMass(feature).geometry.coordinates.reverse()
     }))
@@ -106,8 +106,8 @@ watch(pageMargin, updateMap)
 
 <style lang="scss" module>
 .marker {
-  font-size: 0.625rem;
-  white-space: normal;
+  font-size: 0.75rem;
+  white-space: nowrap;
   overflow: hidden;
   background-color: var(--fillColor, red);
 }
