@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, unref } from 'vue'
+import { computed, nextTick, ref, unref } from 'vue'
 import * as pageSizes from '@/constants/pageSizes'
 
 const props = defineProps({
@@ -81,6 +81,12 @@ function readGeoJson(e) {
     geoJson.value = JSON.parse(reader.result)
     geoJson.value.features = geoJson.value.features.filter((feature) => feature.properties.IncludeStatistics !== false)
     emit('update:geoJson', unref(geoJson))
+
+    nextTick(() => {
+      if (labels.value.includes('TerritoryNumber')) {
+        emit('update:geoJsonLabel', 'TerritoryNumber')
+      }
+    })
   })
   reader.readAsText(file)
 }

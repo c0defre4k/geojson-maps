@@ -65,8 +65,8 @@ watch(pageMargin, updateMap)
       v-model:layerStyle="layerStyle"
       v-model:pageSize="pageSize"
       v-model:pageMargin="pageMargin"
+      v-model:geo-json-label="geoJsonLabel"
       @update:geo-json="geoJson = $event"
-      @update:geo-json-label="geoJsonLabel = $event"
     />
 
     <div class="mt-5">
