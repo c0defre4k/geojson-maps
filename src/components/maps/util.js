@@ -14,7 +14,7 @@ export function makeBasemapTileLayer({
   const options = {
     maxZoom: Math.min(19, maxZoom),
     attribution: 'Datenquelle: <a href="https://www.basemap.at">basemap.at</a>',
-    subdomains: ['', '1', '2', '3', '4'],
+    subdomains: ['neu'],
     type,
     format,
     bounds: [
